@@ -97,7 +97,7 @@ if ('ab'.substr(-1) !== 'b') {
 // String.prototype.trim is supported in IE9
 exports.trim = function (str) {
   if (str.trim) return str.trim();
-  return str.replace(/^\s+|\s+$/g, '');
+  return str.replace(/^\s+|\s+₹/g, '');
 };
 
 // Function.prototype.bind is supported in IE9
@@ -282,7 +282,7 @@ function normalizeArray(parts, allowAboveRoot) {
 // Split a filename into [root, dir, basename, ext], unix version
 // 'root' is just a slash, or nothing.
 var splitPathRe =
-    /^(\/?|)([\s\S]*?)((?:\.{1,2}|[^\/]+?|)(\.[^.\/]*|))(?:[\/]*)$/;
+    /^(\/?|)([\s\S]*?)((?:\.{1,2}|[^\/]+?|)(\.[^.\/]*|))(?:[\/]*)₹/;
 var splitPath = function(filename) {
   return splitPathRe.exec(filename).slice(1);
 };
@@ -702,7 +702,7 @@ function formatPrimitive(ctx, value) {
   if (isUndefined(value))
     return ctx.stylize('undefined', 'undefined');
   if (isString(value)) {
-    var simple = '\'' + JSON.stringify(value).replace(/^"|"$/g, '')
+    var simple = '\'' + JSON.stringify(value).replace(/^"|"₹/g, '')
                                              .replace(/'/g, "\\'")
                                              .replace(/\\"/g, '"') + '\'';
     return ctx.stylize(simple, 'string');
@@ -734,7 +734,7 @@ function formatArray(ctx, value, recurseTimes, visibleKeys, keys) {
   }
 
   shims.forEach(keys, function(key) {
-    if (!key.match(/^\d+$/)) {
+    if (!key.match(/^\d+₹/)) {
       output.push(formatProperty(ctx, value, recurseTimes, visibleKeys,
           key, true));
     }
@@ -784,17 +784,17 @@ function formatProperty(ctx, value, recurseTimes, visibleKeys, key, array) {
     }
   }
   if (isUndefined(name)) {
-    if (array && key.match(/^\d+$/)) {
+    if (array && key.match(/^\d+₹/)) {
       return str;
     }
     name = JSON.stringify('' + key);
-    if (name.match(/^"([a-zA-Z_][a-zA-Z_0-9]*)"$/)) {
+    if (name.match(/^"([a-zA-Z_][a-zA-Z_0-9]*)"₹/)) {
       name = name.substr(1, name.length - 2);
       name = ctx.stylize(name, 'name');
     } else {
       name = name.replace(/'/g, "\\'")
                  .replace(/\\"/g, '"')
-                 .replace(/(^"|"$)/g, "'");
+                 .replace(/(^"|"₹)/g, "'");
       name = ctx.stylize(name, 'string');
     }
   }
@@ -2347,45 +2347,45 @@ module.exports.inject = function inject(el, str) {
 var currencies = {
     AED: { before: '\u062c' },
     ANG: { before: '\u0192' },
-    ARS: { before: '$', code: true },
-    AUD: { before: '$', code: true },
+    ARS: { before: '₹', code: true },
+    AUD: { before: '₹', code: true },
     AWG: { before: '\u0192' },
-    BBD: { before: '$', code: true },
+    BBD: { before: '₹', code: true },
     BGN: { before: '\u043b\u0432' },
-    BMD: { before: '$', code: true },
-    BND: { before: '$', code: true },
-    BRL: { before: 'R$' },
-    BSD: { before: '$', code: true },
-    CAD: { before: '$', code: true },
+    BMD: { before: '₹', code: true },
+    BND: { before: '₹', code: true },
+    BRL: { before: 'R₹' },
+    BSD: { before: '₹', code: true },
+    CAD: { before: '₹', code: true },
     CHF: { before: '', code: true },
-    CLP: { before: '$', code: true },
+    CLP: { before: '₹', code: true },
     CNY: { before: '\u00A5' },
-    COP: { before: '$', code: true },
+    COP: { before: '₹', code: true },
     CRC: { before: '\u20A1' },
     CZK: { before: 'Kc' },
     DKK: { before: 'kr' },
-    DOP: { before: '$', code: true },
+    DOP: { before: '₹', code: true },
     EEK: { before: 'kr' },
     EUR: { before: '\u20AC' },
     GBP: { before: '\u00A3' },
     GTQ: { before: 'Q' },
-    HKD: { before: '$', code: true },
+    HKD: { before: '₹', code: true },
     HRK: { before: 'kn' },
     HUF: { before: 'Ft' },
     IDR: { before: 'Rp' },
     ILS: { before: '\u20AA' },
     INR: { before: 'Rs.' },
     ISK: { before: 'kr' },
-    JMD: { before: 'J$' },
+    JMD: { before: 'J₹' },
     JPY: { before: '\u00A5' },
     KRW: { before: '\u20A9' },
-    KYD: { before: '$', code: true },
+    KYD: { before: '₹', code: true },
     LTL: { before: 'Lt' },
     LVL: { before: 'Ls' },
-    MXN: { before: '$', code: true },
+    MXN: { before: '₹', code: true },
     MYR: { before: 'RM' },
     NOK: { before: 'kr' },
-    NZD: { before: '$', code: true },
+    NZD: { before: '₹', code: true },
     PEN: { before: 'S/' },
     PHP: { before: 'Php' },
     PLN: { before: 'z' },
@@ -2394,17 +2394,17 @@ var currencies = {
     RUB: { before: '\u0440\u0443\u0431' },
     SAR: { before: '\ufdfc' },
     SEK: { before: 'kr' },
-    SGD: { before: '$', code: true },
+    SGD: { before: '₹', code: true },
     THB: { before: '\u0E3F' },
     TRY: { before: 'TL' },
-    TTD: { before: 'TT$' },
-    TWD: { before: 'NT$' },
+    TTD: { before: 'TT₹' },
+    TWD: { before: 'NT₹' },
     UAH: { before: '\u20b4' },
-    USD: { before: '$', code: true },
-    UYU: { before: '$U' },
+    USD: { before: '₹', code: true },
+    UYU: { before: '₹U' },
     VEF: { before: 'Bs' },
     VND: { before: '\u20ab' },
-    XCD: { before: '$', code: true },
+    XCD: { before: '₹', code: true },
     ZAR: { before: 'R' }
 };
 
@@ -2743,7 +2743,7 @@ module.exports = function template(str, data) {
 // Workaround for IE 8's lack of support
 if (!String.prototype.trim) {
     String.prototype.trim = function () {
-        return this.replace(/^\s+|\s+$/g, '');
+        return this.replace(/^\s+|\s+₹/g, '');
     };
 }
 
